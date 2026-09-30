@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Faith's Wonderland equivalent-fractions lesson: spoken multiplication retrieval, build-your-own jumps, equivalent-fraction repair, stretch break, and Grade 4 area/perimeter." />
+  <title>Faith · Wonderland Fraction Mirror Quest</title>
+  <link rel="stylesheet" href="styles.css?v=8" />
+</head>
+<body>
+  <header id="topbar" class="topbar hidden-ui">
+    <button id="coverBtn" class="icon-control cover-control" type="button" title="Back to cover" aria-label="Back to cover">
+      <img src="assets/ui-home.png" alt="" /><span>Cover</span>
+    </button>
+    <div class="progress-wrap" aria-label="Session progress">
+      <div class="progress-copy"><strong id="progressLabel">0 / 6 chapters</strong><span id="progressDetail">Ready</span></div>
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+    </div>
+    <div id="heartPanel" class="status-panel heart-panel hidden" title="Self-practice hearts">
+      <span>HEARTS</span><strong id="heartText">♥ ♥ ♥</strong><small>self-practice only</small>
+    </div>
+    <button id="helperBookBtn" class="helper-book-btn hidden" type="button" title="Open Helper Book">
+      <img src="assets/helper-book.png" alt="" /><span>Helper Book</span>
+    </button>
+    <button id="teacherPassBtn" class="teacher-pass" type="button" title="Teacher Pass" aria-label="Teacher Pass current scene">t</button>
+  </header>
+
+  <aside id="focusPanel" class="focus-panel hidden" aria-label="Teacher focus stars">
+    <span>FOCUS STARS</span>
+    <strong id="focusStars">★ ★ ★ ★ ★</strong>
+    <button id="focusPenaltyBtn" type="button">−1 focus</button>
+    <small>teacher control</small>
+  </aside>
+
+  <div id="catGuide" class="cat-guide hidden-ui" aria-hidden="true">
+    <div id="catBubble" class="cat-bubble">One step at a time.</div>
+    <img src="assets/cheshire-cat.png" alt="" />
+  </div>
+
+  <main id="sceneRoot">
+    <!-- PROLOGUE -->
+    <section id="prologue" class="scene scene-bg-castle active" data-cat="Alice found a new room in Wonderland.">
+      <div class="scene-overlay"></div>
+      <div class="story-panel wide-panel">
+        <div class="visual-novel">
+          <div class="character-card"><img src="assets/alice.png" alt="Alice" /><span>ALICE</span></div>
+          <div class="dialogue-stack">
+            <div class="dialogue alice-dialogue"><strong>Alice</strong><p>“I found a room full of whispering mirrors. They only open when multiplication is solved — and spoken!”</p></div>
+            <div class="dialogue cat-dialogue"><strong>Cheshire Cat</strong><p>“First hear it. Then jump it. Then use it in fractions.”</p></div>
+          </div>
+          <div class="character-card cat-card"><img src="assets/cheshire-cat.png" alt="Cheshire Cat" /><span>CHESHIRE CAT</span></div>
+        </div>
+        <div class="story-title-block">
+          <p class="eyebrow">NEW WONDERLAND CHAPTER</p>
+          <h1>The Echoing Mirror Room</h1>
+          <p>Today we focus on one idea: <strong>how many equal jumps turn one number into another?</strong></p>
+        </div>
+        <div class="button-row center"><button id="startAdventureBtn" class="primary-btn" type="button">Help Alice enter →</button><button id="notYetBtn" class="soft-btn" type="button">Not yet</button></div>
+        <div id="notYetReply" class="tiny-note hidden"></div>
+      </div>
+    </section>
+
+    <!-- COVER -->
+    <section id="cover" class="scene scene-bg-castle" data-cat="Choose the next room.">
+      <div class="scene-overlay"></div>
+      <div class="cover-shell">
+        <div class="cover-heading"><p class="eyebrow">FAITH · EQUIVALENT FRACTION DAY</p><h1>The Echoing Mirror Path</h1><p>One idea, many forms: <strong>equal jumps → multiplier → same change upstairs and downstairs.</strong></p></div>
+        <div class="world-map-grid six-stop-grid">
+          <button id="warmupCard" class="world-stop open" type="button" data-target="warmupIntro">
+            <img src="assets/nav-moon-door.png" alt="Moon door" /><span class="stop-number">1</span><strong>Whispering Number Aviary</strong><small>solve it · say it aloud</small><em id="warmupStatus">Open →</em>
+          </button>
+          <button id="jumpCard" class="world-stop locked" type="button" data-target="jumpIntro" disabled>
+            <img src="assets/nav-moon-clock.png" alt="Moon clock" /><span class="stop-number">2</span><strong>Jump-to-the-Target</strong><small>build every landing yourself</small><em id="jumpStatus">🔒 Finish / pass warm-up</em>
+          </button>
+          <button id="fractionCard" class="world-stop locked" type="button" data-target="fractionIntro" disabled>
+            <img src="assets/nav-lectern.png" alt="Enchanted lectern" /><span class="stop-number">3</span><strong>Fraction Mirror Workshop</strong><small>same change upstairs & downstairs</small><em id="fractionStatus">🔒 Learn the jump strategy first</em>
+          </button>
+          <button id="breakCard" class="world-stop locked rest-stop" type="button" data-target="stretchBreak" disabled>
+            <img src="assets/teacup.png" alt="Tea cup" /><span class="stop-number">☁</span><strong>Alice’s Little Stretch Break</strong><small>15 seconds · no math</small><em id="breakStatus">🔒 Finish the guided lesson</em>
+          </button>
+          <button id="reviewCard" class="world-stop locked" type="button" data-target="repairShop" disabled>
+            <img src="assets/nav-crystal-portal.png" alt="Crystal portal" /><span class="stop-number">4</span><strong>Fraction Repair Shop</strong><small>game-based self-practice</small><em id="reviewStatus">🔒 Take the break first</em>
+          </button>
+          <button id="geometryCard" class="world-stop locked" type="button" data-target="geometryIntro" disabled>
+            <img src="assets/nav-garden-gate.png" alt="Garden gate" /><span class="stop-number">5</span><strong>Alice’s Garden Tiles</strong><small>area inside · perimeter around</small><em id="geometryStatus">🔒 Finish / pass review</em>
+          </button>
+        </div>
+        <div class="cover-tools"><button id="teacherUnlockBtn" class="teacher-unlock" type="button">Teacher unlock everything</button><button id="exitCard" class="soft-btn hidden" type="button">Exit Snapshot →</button><button id="resetAdventureBtn" class="soft-btn" type="button">New Adventure / Reset</button></div>
+      </div>
+    </section>
+
+    <!-- WARM-UP INTRO -->
+    <section id="warmupIntro" class="scene scene-bg-lantern" data-cat="The room listens after you solve and say the fact.">
+      <div class="scene-overlay"></div>
+      <div class="story-panel mission-panel warm-story-panel">
+        <div class="mission-characters"><img src="assets/alice.png" alt="Alice" /><img src="assets/white-rabbit-cheer-new.png" alt="White Rabbit" /></div>
+        <div><p class="eyebrow">CHAPTER 1 · SPOKEN MULTIPLICATION WARM-UP</p><h2>The Whispering Number Aviary</h2><div class="dialogue alice-dialogue compact"><strong>Alice</strong><p>“The room opens only when I hear the whole multiplication sentence.”</p></div><p class="story-copy">Solve one fact. Then read the complete fact aloud. For trickier facts, the noisy Wonderland birds may ask you to repeat it once.</p><div class="ritual-preview"><strong>SOLVE</strong><span>→</span><strong>READ ALOUD</strong><span>→</span><strong>NEXT</strong></div></div>
+        <button id="warmupStartBtn" class="primary-btn" type="button">Start the echo warm-up →</button>
+      </div>
+    </section>
+
+    <!-- WARM-UP LAB -->
+    <section id="warmupLab" class="scene scene-bg-lantern self-practice" data-cat="Solve first. Then say the whole fact.">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell">
+        <aside class="quest-story-card"><img src="assets/lantern.png" alt="Lantern" class="quest-prop" /><p class="eyebrow">WARM-UP · 5 SHORT FACTS</p><h2>Echo the multiplication</h2><p>Changed number combinations, same calm routine.</p><div id="warmupDots" class="stage-dots"></div><div class="hard-stop-card"><strong>Teacher note:</strong> keep this short. Teacher Pass can move to the main jump lesson.</div></aside>
+        <div class="game-panel warmup-game-panel"><div class="game-heading"><div><p class="eyebrow">SOLVE → SAY IT</p><h3 id="warmupQuestionTitle">What is the answer?</h3></div><span id="warmupCount" class="counter">1 / 5</span></div><div id="warmupGameArea"></div><div id="warmupFeedback" class="feedback" aria-live="polite"></div><div class="action-row"><button id="warmupHintBtn" class="hint-btn" type="button">Show a visual clue · ♥1</button></div></div>
+      </div>
+    </section>
+
+    <!-- JUMP INTRO -->
+    <section id="jumpIntro" class="scene scene-bg-moonlit" data-cat="We are not asking 3 × ? yet. First, build the meaning.">
+      <div class="scene-overlay"></div>
+      <div class="story-panel wide-panel jump-story-panel">
+        <div class="visual-novel"><div class="character-card"><img src="assets/alice.png" alt="Alice" /><span>ALICE</span></div><div class="dialogue-stack"><div class="dialogue alice-dialogue"><strong>Alice</strong><p>“I can only jump the same amount each time. You tell me where I land.”</p></div><div class="dialogue cat-dialogue"><strong>Cheshire Cat</strong><p>“The multiplier will be the number of equal jumps — but don’t name it yet.”</p></div></div><div class="character-card cat-card"><img src="assets/cheshire-cat.png" alt="Cheshire Cat" /><span>CHESHIRE CAT</span></div></div>
+        <div class="jump-rule-preview"><div><small>JUMP SIZE</small><strong>+3</strong></div><span>≠</span><div><small>NUMBER OF JUMPS</small><strong>?</strong></div><span>→</span><div><small>MULTIPLIER</small><strong>× ?</strong></div></div>
+        <button id="jumpStartBtn" class="primary-btn" type="button">Build the first path →</button>
+      </div>
+    </section>
+
+    <!-- JUMP LESSON -->
+    <section id="jumpLesson" class="scene scene-bg-moonlit teacher-led" data-cat="Calculate every landing. Count the jumps after you reach the target.">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell jump-shell">
+        <aside class="quest-story-card"><img src="assets/nav-floating-island.png" alt="Floating path" class="quest-prop" /><p class="eyebrow">MAIN LESSON · JUMP-TO-THE-TARGET</p><h2 id="jumpStageTitle">Build the path</h2><p id="jumpStageStory">Start at 0. Use the same jump size until Alice reaches the target.</p><div id="jumpLessonDots" class="stage-dots"></div><div class="jump-legend"><span class="jump-size-key">blue = jump size</span><span class="jump-count-key">pink = number of jumps / multiplier</span></div></aside>
+        <div class="game-panel"><div class="game-heading"><div><p class="eyebrow">MEANING BEFORE SYMBOLS</p><h3 id="jumpGameTitle">Where does Alice land?</h3></div><span id="jumpProblemCount" class="counter">1 / 3</span></div><div id="jumpGameArea"></div><div id="jumpFeedback" class="feedback"></div><div class="action-row"><button id="jumpSupportBtn" class="hint-btn hidden" type="button">Help Alice · show jumps</button><button id="jumpNextBtn" class="primary-btn hidden" type="button">Next path →</button></div></div>
+      </div>
+    </section>
+
+    <!-- FRACTION INTRO -->
+    <section id="fractionIntro" class="scene scene-bg-mirror" data-cat="Now carry the jump multiplier into the fraction.">
+      <div class="scene-overlay"></div>
+      <div class="story-panel wide-panel fraction-intro-panel">
+        <div class="visual-novel"><div class="character-card"><img src="assets/alice.png" alt="Alice" /><span>ALICE</span></div><div class="dialogue-stack"><div class="dialogue alice-dialogue"><strong>Alice</strong><p>“The denominator mirror changed. I need the same change upstairs too.”</p></div><div class="dialogue cat-dialogue"><strong>Cheshire Cat</strong><p>“Find the jump downstairs. Copy the same multiplier upstairs.”</p></div></div><div class="character-card cat-card"><img src="assets/cheshire-cat.png" alt="Cheshire Cat" /><span>CHESHIRE CAT</span></div></div>
+        <div class="fraction-mantra"><span>DOWNSTAIRS</span><b>→</b><span>FIND THE JUMPS</span><b>→</b><span>SAME CHANGE UPSTAIRS</span></div>
+        <button id="fractionStartBtn" class="primary-btn" type="button">Repair the first mirror →</button>
+      </div>
+    </section>
+
+    <!-- FRACTION LESSON -->
+    <section id="fractionLesson" class="scene scene-bg-mirror teacher-led" data-cat="Same change upstairs and downstairs.">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell fraction-shell"><aside class="quest-story-card"><img src="assets/mirror.png" alt="Mirror" class="quest-prop" /><p class="eyebrow">EQUIVALENT FRACTIONS · GUIDED → INDEPENDENT</p><h2 id="fractionStageTitle">Mirror Repair</h2><p id="fractionStageStory">Find the multiplier downstairs, then copy it upstairs.</p><div id="fractionStageDots" class="stage-dots"></div><div class="mantra-card">Same change <strong>upstairs</strong> and <strong>downstairs</strong>.</div></aside><div class="game-panel"><div class="game-heading"><div><p id="fractionKicker" class="eyebrow">GUIDED</p><h3 id="fractionGameTitle">Find the denominator jump</h3></div><span id="fractionStageCount" class="counter">1 / 4</span></div><div id="fractionGameArea"></div><div id="fractionFeedback" class="feedback"></div><div class="action-row"><button id="fractionHelpBtn" class="hint-btn" type="button">Help Alice · show jumps</button><button id="fractionNextBtn" class="primary-btn hidden" type="button">Next mirror →</button></div></div></div>
+    </section>
+
+    <!-- BREAK -->
+    <section id="stretchBreak" class="scene scene-bg-study break-scene" data-cat="No math right now.">
+      <div class="scene-overlay"></div>
+      <div class="break-card">
+        <img src="assets/alice-stretch.png" alt="Alice stretching" class="stretch-alice" />
+        <div class="break-copy"><p class="eyebrow">A TRUE LITTLE BREAK</p><h1>Alice’s Little Stretch Break</h1><p>No math right now. Alice needs a tiny rest too.</p><div id="breakTimer" class="break-timer">15</div><div id="breakInstruction" class="break-instruction">Reach both hands up.</div><div class="break-progress"><i id="breakProgress"></i></div><button id="breakReadyBtn" class="primary-btn hidden" type="button">Ready to help Alice again? →</button><button id="breakRestartBtn" class="soft-btn" type="button">Restart 15-second break</button></div>
+      </div>
+    </section>
+
+    <!-- REVIEW / REPAIR SHOP -->
+    <section id="repairShop" class="scene scene-bg-study self-practice" data-cat="The review is the game today.">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell repair-shell"><aside class="quest-story-card"><img src="assets/white-rabbit-cheer-new.png" alt="White Rabbit" class="quest-prop rabbit-prop" /><p class="eyebrow">SELF-PRACTICE · FRACTION REPAIR SHOP</p><h2 id="repairStageTitle">Cake Card Repair</h2><p id="repairStageStory">Repair five Wonderland objects with the same equivalent-fraction idea.</p><div id="repairDots" class="stage-dots"></div><div class="repair-note">Later stations hide the jump path. <strong>Help Alice</strong> remains available if needed.</div></aside><div class="game-panel repair-panel"><div class="game-heading"><div><p id="repairKicker" class="eyebrow">STATION 1</p><h3 id="repairGameTitle">Fix the missing number</h3></div><span id="repairStageCount" class="counter">1 / 5</span></div><div id="repairWorldReward" class="world-reward"></div><div id="repairGameArea"></div><div id="repairFeedback" class="feedback"></div><div class="action-row"><button id="repairHelpBtn" class="hint-btn" type="button">Help Alice · show jumps · ♥1</button><button id="repairNextBtn" class="primary-btn hidden" type="button">Next repair →</button></div></div></div>
+    </section>
+
+    <!-- GEOMETRY INTRO -->
+    <section id="geometryIntro" class="scene scene-bg-queen" data-cat="Geometry dessert: inside versus around.">
+      <div class="scene-overlay"></div>
+      <div class="story-panel geometry-story-panel"><img src="assets/alice.png" alt="Alice" class="side-alice" /><div><p class="eyebrow">OPTIONAL GEOMETRY DESSERT · GRADE 4</p><h2>Alice’s Garden Tiles</h2><p class="story-copy">The garden has two jobs: plant every square inside, then build ribbon fence around the outside.</p><div class="dialogue alice-dialogue compact"><strong>Alice</strong><p>“Inside is area. Around is perimeter. Let’s discover both with the same garden.”</p></div></div><img src="assets/cheshire-cat.png" alt="Cheshire Cat" class="side-cat" /><button id="geometryStartBtn" class="primary-btn" type="button">Enter the tile garden →</button></div>
+    </section>
+
+    <!-- GEOMETRY LAB -->
+    <section id="geometryLab" class="scene scene-bg-queen self-practice" data-cat="Area is inside. Perimeter is around.">
+      <div class="scene-overlay"></div>
+      <div class="quest-shell"><aside class="quest-story-card"><img src="assets/ruler.png" alt="Ruler" class="quest-prop" /><p class="eyebrow">ALICE’S GARDEN TILES</p><h2 id="geometryStageTitle">Plant the Garden</h2><p id="geometryStageStory">Tap each square Alice can plant.</p><div id="geometryDots" class="stage-dots"></div><div class="geometry-reminder"><strong>AREA</strong> = inside<br><strong>PERIMETER</strong> = around</div></aside><div class="game-panel"><div class="game-heading"><div><p id="geometryKicker" class="eyebrow">QUEST 1 · AREA</p><h3 id="geometryGameTitle">Cover the inside</h3></div><span id="geometryStageCount" class="counter">1 / 3</span></div><div id="geometryGameArea"></div><div id="geometryFeedback" class="feedback"></div><div class="action-row"><button id="geometryHintBtn" class="hint-btn" type="button">Tiny visual hint · ♥1</button><button id="geometryNextBtn" class="primary-btn hidden" type="button">Next garden quest →</button></div></div></div>
+    </section>
+
+    <!-- EXIT -->
+    <section id="exitSnapshot" class="scene scene-bg-castle" data-cat="Two tiny checks, then stop.">
+      <div class="scene-overlay"></div>
+      <div class="exit-shell"><div class="exit-heading"><img src="assets/checklist.png" alt="Checklist" /><div><p class="eyebrow">EXIT SNAPSHOT</p><h1>What can Faith do now?</h1><p>Correctness matters, but support level matters too.</p></div></div><div class="exit-grid"><div class="exit-student"><h3>Student Question 1 · multiplier</h3><div id="exitQ1"></div><h3>Student Question 2 · equivalent fraction</h3><div id="exitQ2"></div><div id="exitFeedback" class="feedback"></div></div><div class="teacher-tracker"><h3>Teacher support tracker</h3><p class="tracker-key"><strong>I</strong> Independent · <strong>V</strong> Visual support · <strong>T</strong> Teacher prompt</p><div id="supportTracker"></div><button id="copySummaryBtn" class="soft-btn" type="button">Copy Session Summary</button><textarea id="summaryText" class="summary-text" readonly></textarea></div></div><div class="button-row center"><button id="finishAdventureBtn" class="primary-btn" type="button">Finish today’s adventure ✨</button><button id="exitCoverBtn" class="soft-btn" type="button">Back to Cover</button></div></div>
+    </section>
+
+    <!-- FINALE -->
+    <section id="finale" class="scene scene-bg-castle" data-cat="Today’s mirror path is complete.">
+      <div class="scene-overlay"></div><div class="story-panel finale-panel"><div class="finale-art"><img src="assets/alice.png" alt="Alice" /><img src="assets/white-rabbit-cheer-new.png" alt="White Rabbit" /><img src="assets/cheshire-cat.png" alt="Cheshire Cat" /></div><p class="eyebrow">TODAY’S ADVENTURE COMPLETE</p><h1>The Mirrors Remember Your Jumps</h1><p class="story-copy">The goal was not speed. It was learning what the multiplier means: <strong>how many equal jumps</strong> reach the target — then using that same change upstairs and downstairs.</p><div class="button-row center"><button id="finalCoverBtn" class="primary-btn" type="button">Return to Cover</button><button id="finalResetBtn" class="soft-btn" type="button">Start a New Adventure</button></div></div>
+    </section>
+  </main>
+
+  <!-- SPOKEN FACT GATE -->
+  <div id="spokenModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="spokenTitle">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card spoken-modal-card">
+      <img src="assets/alice.png" alt="Alice listening" class="spoken-alice" />
+      <p id="spokenEyebrow" class="eyebrow">ALICE IS LISTENING</p>
+      <h2 id="spokenTitle">Can you read this aloud so Alice can hear you?</h2>
+      <div id="spokenFact" class="spoken-fact">3 × 4 = 12</div>
+      <p id="spokenPrompt" class="spoken-prompt">Say the whole sentence out loud.</p>
+      <button id="spokenConfirmBtn" class="primary-btn spoken-confirm" type="button">I said it!</button>
+    </div>
+  </div>
+
+  <!-- HELPER BOOK -->
+  <div id="helperBookModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="helperBookTitle">
+    <div class="modal-backdrop" data-close-modal="helperBookModal"></div>
+    <div class="modal-card helper-modal-card"><button class="modal-close" data-close-modal="helperBookModal" aria-label="Close Helper Book">×</button><div class="helper-title"><img src="assets/helper-book.png" alt="" /><div><p class="eyebrow">ALICE’S HELPER BOOK</p><h2 id="helperBookTitle">Multiplication Support</h2><p>A helper is a tool. Return to the fraction idea after using it.</p></div></div><div class="helper-tabs"><button class="helper-tab active" data-helper="2">×2</button><button class="helper-tab" data-helper="3">×3</button><button class="helper-tab" data-helper="4">×4</button><button class="helper-tab" data-helper="5">×5</button><button class="helper-tab" data-helper="10">×10</button></div><div id="helperBookContent"></div><div class="helper-jump-tool"><h3>Build a jump path</h3><div class="jump-inputs"><label>Jump size <input id="helperJumpSize" inputmode="numeric" value="3" /></label><label>Target <input id="helperJumpTarget" inputmode="numeric" value="12" /></label><button id="helperJumpBtn" class="soft-btn" type="button">Show path</button></div><div id="helperJumpOutput"></div></div></div>
+  </div>
+
+  <!-- HEART RESET -->
+  <div id="heartModal" class="modal hidden" role="dialog" aria-modal="true"><div class="modal-backdrop"></div><div class="modal-card checkpoint-card"><img src="assets/cheshire-cat.png" alt="Cheshire Cat" /><p class="eyebrow">HEARTS USED</p><h2>Reset this tiny puzzle</h2><p>We only restart the current station, not the whole chapter.</p><button id="heartRestartBtn" class="primary-btn" type="button">Try this station again · ♥♥♥</button></div></div>
+
+  <!-- FOCUS RESET -->
+  <div id="focusModal" class="modal hidden" role="dialog" aria-modal="true"><div class="modal-backdrop"></div><div class="modal-card checkpoint-card sad-focus"><img src="assets/cheshire-cat.png" alt="Sad Cheshire Cat" /><p class="eyebrow">FOCUS RESET</p><h2>The Cat lost the thread…</h2><p>One tiny task at a time. Look at the current picture, then we continue.</p><button id="focusResetBtn" class="primary-btn" type="button">Second chance · ★ ★ ★</button></div></div>
+
+  <script src="script.js?v=8"></script>
+</body>
+</html>
